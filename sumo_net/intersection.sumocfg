@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SUMO simulation configuration.
+
+  Prerequisites:
+    1. Run generate_net.bat to produce intersection.net.xml first.
+    2. Launch via main.py, which starts SUMO and connects via TraCI.
+
+  Manual debug launch (sumo-gui):
+    sumo-gui -c intersection.sumocfg
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file   value="intersection.net.xml"/>
+        <route-files value="intersection.rou.xml"/>
+    </input>
+
+    <time>
+        <begin       value="0"/>
+        <end         value="3600"/>
+        <step-length value="1.0"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors       value="true"/>
+        <collision.check-junctions value="true"/>
+        <time-to-teleport          value="300"/>
+    </processing>
+
+    <report>
+        <verbose     value="false"/>
+        <no-step-log value="true"/>
+        <no-warnings value="false"/>
+    </report>
+
+
+</configuration>

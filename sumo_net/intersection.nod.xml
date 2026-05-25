@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+
+    <!-- Center intersection with 4-phase traffic light control -->
+    <node id="C" x="0.00"    y="0.00"   type="traffic_light"/>
+
+    <!-- Four fringe dead-end nodes, 200 m from center in each direction -->
+    <node id="N" x="0.00"    y="200.00" type="dead_end"/>
+    <node id="S" x="0.00"    y="-200.00" type="dead_end"/>
+    <node id="E" x="200.00"  y="0.00"   type="dead_end"/>
+    <node id="W" x="-200.00" y="0.00"   type="dead_end"/>
+
+</nodes>

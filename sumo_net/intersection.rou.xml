@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Route and flow file for the 4-approach intersection simulation.
+
+  Default flows (veh/h) are taken from the design example:
+    North through 620 | North left 180
+    South through 580 | South left 160
+    East  through 430 | East  left 120
+    West  through 460 | West  left 140
+
+  The Python application can override these flows by:
+    1. Editing this file before starting SUMO, OR
+    2. Using traci.vehicle.add() at runtime (SimController.add_vehicles).
+
+  departLane convention:
+    "0" → through lane (lane 0, rightmost)
+    "1" → left-turn lane (lane 1, leftmost)
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <!-- ── Vehicle type ───────────────────────────────────────────────── -->
+    <vType id="car"
+           accel="2.6"
+           decel="4.5"
+           sigma="0.5"
+           length="5.0"
+           minGap="2.5"
+           maxSpeed="13.89"
+           tau="1.0"
+           guiShape="passenger"/>
+
+    <!-- ── Route definitions ──────────────────────────────────────────── -->
+    <!-- North approach -->
+    <route id="route_N_through" edges="n2c c2s"/>
+    <route id="route_N_left"    edges="n2c c2e"/>
+    <route id="route_N_right"   edges="n2c c2w"/>
+    <!-- South approach -->
+    <route id="route_S_through" edges="s2c c2n"/>
+    <route id="route_S_left"    edges="s2c c2w"/>
+    <route id="route_S_right"   edges="s2c c2e"/>
+    <!-- East approach -->
+    <route id="route_E_through" edges="e2c c2w"/>
+    <route id="route_E_left"    edges="e2c c2s"/>
+    <route id="route_E_right"   edges="e2c c2n"/>
+    <!-- West approach -->
+    <route id="route_W_through" edges="w2c c2e"/>
+    <route id="route_W_left"    edges="w2c c2n"/>
+    <route id="route_W_right"   edges="w2c c2s"/>
+
+    <!-- ── Default demand flows (1-hour simulation) ───────────────────── -->
+    <flow id="flow_N_through" type="car" route="route_N_through"
+          begin="0" end="3600" vehsPerHour="620"
+          departLane="0" departSpeed="max"/>
+    <flow id="flow_N_left" type="car" route="route_N_left"
+          begin="0" end="3600" vehsPerHour="180"
+          departLane="1" departSpeed="max"/>
+
+    <flow id="flow_S_through" type="car" route="route_S_through"
+          begin="0" end="3600" vehsPerHour="580"
+          departLane="0" departSpeed="max"/>
+    <flow id="flow_S_left" type="car" route="route_S_left"
+          begin="0" end="3600" vehsPerHour="160"
+          departLane="1" departSpeed="max"/>
+
+    <flow id="flow_E_through" type="car" route="route_E_through"
+          begin="0" end="3600" vehsPerHour="430"
+          departLane="0" departSpeed="max"/>
+    <flow id="flow_E_left" type="car" route="route_E_left"
+          begin="0" end="3600" vehsPerHour="120"
+          departLane="1" departSpeed="max"/>
+
+    <flow id="flow_W_through" type="car" route="route_W_through"
+          begin="0" end="3600" vehsPerHour="460"
+          departLane="0" departSpeed="max"/>
+    <flow id="flow_W_left" type="car" route="route_W_left"
+          begin="0" end="3600" vehsPerHour="140"
+          departLane="1" departSpeed="max"/>
+
+</routes>

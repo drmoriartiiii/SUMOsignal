@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Edge file for a 4-approach signalised intersection.
+
+  Lane layout (2 lanes per edge, right-hand traffic):
+    Lane 0 (rightmost) — through movement + free right turn
+    Lane 1 (leftmost)  — protected left turn
+
+  Speed: 50 km/h = 13.89 m/s
+-->
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+    <!-- ── Approach edges (leading INTO the intersection) ─────────────── -->
+    <!-- n2c: vehicles heading SOUTH  (from North fringe to Center) -->
+    <edge id="n2c" from="N" to="C" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+
+    <!-- s2c: vehicles heading NORTH  (from South fringe to Center) -->
+    <edge id="s2c" from="S" to="C" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+
+    <!-- e2c: vehicles heading WEST   (from East fringe to Center) -->
+    <edge id="e2c" from="E" to="C" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+
+    <!-- w2c: vehicles heading EAST   (from West fringe to Center) -->
+    <edge id="w2c" from="W" to="C" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+
+    <!-- ── Departure edges (leaving the intersection) ─────────────────── -->
+    <edge id="c2n" from="C" to="N" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+    <edge id="c2s" from="C" to="S" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+    <edge id="c2e" from="C" to="E" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+    <edge id="c2w" from="C" to="W" numLanes="2" speed="13.89" priority="1"
+          spreadType="center"/>
+
+</edges>

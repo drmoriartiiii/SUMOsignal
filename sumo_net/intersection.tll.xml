@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  REFERENCE DOCUMENT — NOT passed to netconvert                      ║
+  ║                                                                      ║
+  ║  This file documents the 4-phase timing plan that TraCIAdapter       ║
+  ║  constructs and applies to junction "C" at runtime via              ║
+  ║    traci.trafficlight.setProgramLogic()                              ║
+  ║                                                                      ║
+  ║  Why we don't use this file in netconvert:                           ║
+  ║  The <phase state="..."> string must have exactly one character per  ║
+  ║  connection, in the order that netconvert assigns linkIndex values.  ║
+  ║  That ordering depends on the generator's internals and cannot be    ║
+  ║  predicted from the input files.  Hardcoding state strings here     ║
+  ║  would produce incorrect phase assignments.                          ║
+  ║                                                                      ║
+  ║  Instead, generate_net.bat lets netconvert auto-generate the initial ║
+  ║  traffic light program, and TraCIAdapter.build_link_map() reads the  ║
+  ║  actual linkIndex values from the running simulation to construct    ║
+  ║  correct state strings dynamically.                                  ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+
+  Design specification — 4-phase fixed-time plan, cycle = 96 s:
+  ┌──────┬────────────────────────┬──────┐
+  │ Phase│ Description            │  Dur │
+  ├──────┼────────────────────────┼──────┤
+  │  1   │ N-S Through — green    │  32s │
+  │      │            — yellow   │   3s │
+  │      │ All-Red                │   1s │
+  ├──────┼────────────────────────┼──────┤
+  │  2   │ N-S Left    — green    │  16s │
+  │      │            — yellow   │   3s │
+  │      │ All-Red                │   1s │
+  ├──────┼────────────────────────┼──────┤
+  │  3   │ E-W Through — green    │  22s │
+  │      │            — yellow   │   3s │
+  │      │ All-Red                │   1s │
+  ├──────┼────────────────────────┼──────┤
+  │  4   │ E-W Left    — green    │  10s │
+  │      │            — yellow   │   3s │
+  │      │ All-Red                │   1s │
+  └──────┴────────────────────────┴──────┘
+  Total: 4 × (green + 3 + 1) = 96 s
+
+  Connection → movement mapping (defined in intersection.con.xml):
+    N approach lane 0 → c2s  (N-S through)
+    N approach lane 1 → c2e  (N left turn)
+    N approach lane 0 → c2w  (N right turn — free/yield)
+    S approach lane 0 → c2n  (N-S through, opposing)
+    S approach lane 1 → c2w  (S left turn)
+    S approach lane 0 → c2e  (S right turn — free/yield)
+    E approach lane 0 → c2w  (E-W through)
+    E approach lane 1 → c2s  (E left turn)
+    E approach lane 0 → c2n  (E right turn — free/yield)
+    W approach lane 0 → c2e  (E-W through, opposing)
+    W approach lane 1 → c2n  (W left turn)
+    W approach lane 0 → c2s  (W right turn — free/yield)
+
+  State-string character codes (used by TraCIAdapter at runtime):
+    G = green (protected)
+    g = green (yield — right turns)
+    y = yellow
+    r = red
+
+  Expected state strings once linkIndex ordering is known (see
+  TraCIAdapter.build_link_map() for the runtime construction logic):
+    NS_THROUGH_GREEN  : G at {N_through, S_through}, g at {right turns}
+    NS_LEFT_GREEN     : G at {N_left, S_left},       g at {right turns}
+    EW_THROUGH_GREEN  : G at {E_through, W_through}, g at {right turns}
+    EW_LEFT_GREEN     : G at {E_left, W_left},       g at {right turns}
+-->

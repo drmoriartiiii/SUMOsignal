@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Connection file: maps approach lanes to exit edges at junction C.
+
+  NOTE: tl and linkIndex are OUTPUT-only attributes produced by netconvert
+  in the generated net.xml. They are NOT accepted in input connection files.
+  Junction C is declared type="traffic_light" in the node file, so netconvert
+  automatically assigns every connection here to that traffic light.
+
+  The actual linkIndex ordering can be read from the generated net.xml or
+  queried at runtime via traci.trafficlight.getControlledLinks().
+  TraCIAdapter.build_link_map() does this automatically on startup.
+
+  Lane layout per approach (2 lanes, right-hand traffic):
+    Lane 0 (rightmost) - through movement and right turn
+    Lane 1 (leftmost)  - protected left turn
+-->
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+
+    <!-- North approach: vehicles heading south -->
+    <connection from="n2c" to="c2s" fromLane="0" toLane="0"/>
+    <connection from="n2c" to="c2e" fromLane="1" toLane="0"/>
+    <connection from="n2c" to="c2w" fromLane="0" toLane="0"/>
+
+    <!-- South approach: vehicles heading north -->
+    <connection from="s2c" to="c2n" fromLane="0" toLane="0"/>
+    <connection from="s2c" to="c2w" fromLane="1" toLane="0"/>
+    <connection from="s2c" to="c2e" fromLane="0" toLane="0"/>
+
+    <!-- East approach: vehicles heading west -->
+    <connection from="e2c" to="c2w" fromLane="0" toLane="0"/>
+    <connection from="e2c" to="c2s" fromLane="1" toLane="0"/>
+    <connection from="e2c" to="c2n" fromLane="0" toLane="0"/>
+
+    <!-- West approach: vehicles heading east -->
+    <connection from="w2c" to="c2e" fromLane="0" toLane="0"/>
+    <connection from="w2c" to="c2n" fromLane="1" toLane="0"/>
+    <connection from="w2c" to="c2s" fromLane="0" toLane="0"/>
+
+</connections>

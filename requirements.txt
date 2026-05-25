@@ -1,0 +1,12 @@
+# SUMO Fixed-Signal Timing System — Python dependencies
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# NOTE: `traci` and `sumolib` are shipped with SUMO itself
+# (found in %SUMO_HOME%\tools\).  They are NOT on PyPI.
+# config.py adds %SUMO_HOME%\tools to sys.path automatically,
+# so no manual path setup is needed after setting SUMO_HOME.
+
+PyQt5>=5.15.0
+SQLAlchemy>=2.0.0
