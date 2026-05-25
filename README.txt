@@ -7,7 +7,7 @@ signal plans at isolated intersections using SUMO and the Webster algorithm.
 
 REQUIREMENTS
 ------------
-Python       3.10+
+Python       3.10 or 3.11
 SUMO         1.19+  (set SUMO_HOME environment variable)
 PyQt5        5.15+
 SQLAlchemy   2.x
